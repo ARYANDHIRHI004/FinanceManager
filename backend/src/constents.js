@@ -35,3 +35,9 @@ export const SubscriptionEnum = {
   PREMIUM_PLAN: "Premium_Plan",
 };
 export const SubscriptionEnumOptions = Object.values(SubscriptionEnum);
+
+export const transectionTypeEnum = {
+    IN: "In",
+    OUT: "Out",
+}
+export const transectionTypeEnumOptions = Object.values(transectionTypeEnum);
