@@ -10,11 +10,15 @@ export const enviroment = {
   PORT: process.env.PORT,
 };
 
-
 export const accountUserRole = {
-    ADMIN: "Admin",
-    COLLABORATER: "collaborater",
-    MEMBER: "MEMBER",
-}
+  ADMIN: "Admin",
+  COLLABORATER: "collaborater",
+  MEMBER: "MEMBER",
+};
+export const accountUserEnumOptions = Object.values(accountUserRole);
 
-export const accountUserEnumOptions = Object.values(accountUserRole)
+export const accountTypeEnum = {
+  FREE: "free",
+  PREMIUM: "Premium",
+};
+export const accountTypeEnumOptions = Object.values(accountTypeEnum);
