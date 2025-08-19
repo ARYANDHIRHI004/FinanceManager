@@ -3,7 +3,7 @@ import { accountUserEnumOptions, accountUserRole } from "../constents";
 
 const accountMemberSchema = new mongoose.Schema(
   {
-    userId: {
+    memberId: {
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
