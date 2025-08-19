@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { projectRoleEnum, projectRoleEnumOptions } from "../constents";
+import { projectRoleEnum, projectRoleEnumOptions } from "../constents.js";
 
 const projectMamberSchema = new mongoose.Schema(
   {

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { accountUserEnumOptions, accountUserRole } from "../constents";
+import { accountUserEnumOptions, accountUserRole } from "../constents.js";
 
 const accountMemberSchema = new mongoose.Schema(
   {

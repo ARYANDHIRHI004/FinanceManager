@@ -9,6 +9,7 @@ export const enviroment = {
   MONGODB_URL: process.env.MONGODB_URL,
   ORIGIN: process.env.ORIGIN,
   PORT: process.env.PORT,
+  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
 };
 
 export const accountUserRole = {
@@ -19,8 +20,8 @@ export const accountUserRole = {
 export const accountUserEnumOptions = Object.values(accountUserRole);
 
 export const accountTypeEnum = {
-  FREE: "free",
-  PREMIUM: "Premium",
+  PRIVATE: "Private",
+  JOINT: "Joint",
 };
 export const accountTypeEnumOptions = Object.values(accountTypeEnum);
 
