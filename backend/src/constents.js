@@ -9,3 +9,12 @@ export const enviroment = {
   ORIGIN: process.env.ORIGIN,
   PORT: process.env.PORT,
 };
+
+
+export const accountUserRole = {
+    ADMIN: "Admin",
+    COLLABORATER: "collaborater",
+    MEMBER: "MEMBER",
+}
+
+export const accountUserEnumOptions = Object.values(accountUserRole)
