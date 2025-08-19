@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { accountTypeEnum, accountTypeEnumOptions } from "../constents";
+import { accountTypeEnum, accountTypeEnumOptions } from "../constents.js";
 
 const accountSchema = new mongoose.Schema(
   {
@@ -14,7 +14,7 @@ const accountSchema = new mongoose.Schema(
     accountType: {
       type: String,
       enum: accountTypeEnumOptions,
-      default: accountTypeEnum.FREE,
+      default: accountTypeEnum.PRIVATE,
     },
   },
   { timestamps: true },

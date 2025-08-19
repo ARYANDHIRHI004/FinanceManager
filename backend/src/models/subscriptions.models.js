@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { SubscriptionEnum, SubscriptionEnumOptions } from "../constents";
+import { SubscriptionEnum, SubscriptionEnumOptions } from "../constents.js";
 
 const subscriptionSchema = new mongoose.Schema(
   {
