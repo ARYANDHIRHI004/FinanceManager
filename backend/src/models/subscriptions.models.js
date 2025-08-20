@@ -15,9 +15,15 @@ const subscriptionSchema = new mongoose.Schema(
       enum: SubscriptionEnumOptions,
       default: SubscriptionEnum.FREE_PLAN,
     },
-    price: {
+    amount: {
       type: String,
+      required:true
     },
+    status: {
+      type: String,
+      default: "pending",
+    },
+
   },
   { timestamps: true },
 );
