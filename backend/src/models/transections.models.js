@@ -14,7 +14,16 @@ const transectionSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "Account",
     },
+    forProject: {
+      projectId: {
+        type: String,
+      },
+    },
     ammount: {
+      type: String,
+      required: true,
+    },
+    note: {
       type: String,
       required: true,
     },
