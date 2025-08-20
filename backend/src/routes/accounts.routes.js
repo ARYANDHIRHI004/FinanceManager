@@ -11,24 +11,24 @@ import {
   updateRoleOfMembers,
 } from "../controllers/accounts.controllers.js";
 
-const accountRoutes = Router();
+const accountRouter = Router();
 
-accountRoutes.route("/get-my-accounts").get(verifyJWT, getMyAccounts);
-accountRoutes.route("/get-join-accounts").get(verifyJWT, getJointAccounts);
-accountRoutes
+accountRouter.route("/get-my-accounts").get(verifyJWT, getMyAccounts);
+accountRouter.route("/get-join-accounts").get(verifyJWT, getJointAccounts);
+accountRouter
   .route("/get-account-by-id/:accountId")
   .get(verifyJWT, getAccountById);
-accountRoutes.route("/create-account").post(verifyJWT, createAccount);
-// accountRoutes.route("/update-account/:accountId").put(verifyJWT, updateAccount);
-// accountRoutes.route("/delete-account/:accountId").delete(verifyJWT, deleteAccount);
-accountRoutes
+accountRouter.route("/create-account").post(verifyJWT, createAccount);
+// accountRouter.route("/update-account/:accountId").put(verifyJWT, updateAccount);
+// accountRouter.route("/delete-account/:accountId").delete(verifyJWT, deleteAccount);
+accountRouter
   .route("/add-members-to-account/:accountId")
   .post(verifyJWT, addMembersToAccount);
-accountRoutes
+accountRouter
   .route("/update-members-to-account/:accountId")
   .delete(verifyJWT, removeMembersFromAccount);
-accountRoutes
+accountRouter
   .route("/update-role-of-members/:accountId")
   .put(verifyJWT, updateRoleOfMembers);
 
-export default accountRoutes;
+export default accountRouter;
