@@ -14,9 +14,14 @@ const transectionSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "Account",
     },
-    forProject: {
+    for: {
       projectId: {
-        type: String,
+        type: mongoose.Types.ObjectId,
+        ref: "Project",
+      },
+      categoryId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Category",
       },
     },
     ammount: {
