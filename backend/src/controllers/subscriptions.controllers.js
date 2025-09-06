@@ -3,10 +3,11 @@ import { Subscription } from "../models/subscriptions.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
+import { enviroment } from "../constents.js";
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_id: enviroment.RAZORPAY_KEY_ID,
+  key_secret: enviroment.RAZORPAY_KEY_SECRET,
 });
 
 export const createOrder = asyncHandler(async (req, res) => {
@@ -21,14 +22,16 @@ export const createOrder = asyncHandler(async (req, res) => {
     throw new ApiError(401, "You are already subscribed");
   }
 
-  const subscription = await Subscription.create({
+  let subscription = await Subscription.findOne({
     userId: req.user?._id,
-    amount,
-    subscriptionPlan,
+    subscriptionPlan: "FREE_PLAN",
   });
 
   if (!subscription) {
-    throw new ApiError(501, "Internal server error");
+    subscription = await Subscription.create({
+      userId: req.user?._id,
+      subscriptionPlan,
+    });
   }
 
   const options = {
@@ -48,6 +51,8 @@ export const createOrder = asyncHandler(async (req, res) => {
   }
 
   subscription.paymemtId = order.id;
+  subscription.amount = amount;
+  subscription.status = "pending";
   await subscription.save();
 
   return res
@@ -85,4 +90,26 @@ export const verifyPayment = asyncHandler(async (req, res) => {
   return res
     .status(200)
     .json(new ApiResponse(200, "Subscription successfull", subscription));
+});
+
+export const freePlanSubscription = asyncHandler(async (req, res) => {
+  const subscription = await Subscription.findOne({
+    userId: req.user?._id,
+  });
+
+  if (subscription) {
+    throw new ApiError(401, "You are already subscribed");
+  }
+
+  const newSubscription = await Subscription.create({
+    userId: req.user?._id,
+  });
+
+  if (!newSubscription) {
+    throw new ApiError(501, "Internal server error");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "Subscription successfull", newSubscription));
 });

@@ -14,21 +14,29 @@ import {
 const accountRouter = Router();
 
 accountRouter.route("/get-my-accounts").get(verifyJWT, getMyAccounts);
-accountRouter.route("/get-join-accounts").get(verifyJWT, getJointAccounts);
+
+accountRouter.route("/get-join-accounts").get(verifyJWT, getJointAccounts); // RBAC middleware for account membership checking
+
 accountRouter
   .route("/get-account-by-id/:accountId")
   .get(verifyJWT, getAccountById);
+
 accountRouter.route("/create-account").post(verifyJWT, createAccount);
-// accountRouter.route("/update-account/:accountId").put(verifyJWT, updateAccount);
-// accountRouter.route("/delete-account/:accountId").delete(verifyJWT, deleteAccount);
+
 accountRouter
   .route("/add-members-to-account/:accountId")
-  .post(verifyJWT, addMembersToAccount);
+  .post(verifyJWT,checkSubscription, addMembersToAccount); //add middleware for authorization or RBAC and account type 
+
 accountRouter
   .route("/update-members-to-account/:accountId")
-  .delete(verifyJWT, removeMembersFromAccount);
+  .delete(verifyJWT,checkSubscription, removeMembersFromAccount); //add middleware for authorization or RBAC and account type
+
 accountRouter
   .route("/update-role-of-members/:accountId")
-  .put(verifyJWT, updateRoleOfMembers);
+  .put(verifyJWT,checkSubscription, updateRoleOfMembers); //add middleware for authorization or RBAC and account type
+
+// accountRouter.route("/update-account/:accountId").put(verifyJWT, updateAccount);
+
+// accountRouter.route("/delete-account/:accountId").delete(verifyJWT, deleteAccount);
 
 export default accountRouter;

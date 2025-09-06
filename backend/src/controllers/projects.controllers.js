@@ -39,9 +39,8 @@ export const getAllProject = asyncHandler(async (req, res) => {
   const { accountId } = req.params;
   const userId = req.user?._id;
 
-  const projects = await AccountMember.find({
-    accountId,
-    memberId: userId,
+  const projects = await ProjectMamber.find({
+    projectMemberId: userId,
   });
 
   if (!projects) {
