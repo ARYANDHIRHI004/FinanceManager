@@ -10,8 +10,12 @@ export const enviroment = {
   ORIGIN: process.env.ORIGIN,
   PORT: process.env.PORT,
   ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+  RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
+  RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
 };
 
+
+//middleware
 export const accountUserRole = {
   ADMIN: "Admin",
   COLLABORATER: "collaborater",
@@ -19,18 +23,21 @@ export const accountUserRole = {
 };
 export const accountUserEnumOptions = Object.values(accountUserRole);
 
+//middleware
 export const accountTypeEnum = {
   PRIVATE: "Private",
   JOINT: "Joint",
 };
 export const accountTypeEnumOptions = Object.values(accountTypeEnum);
 
+//middleware
 export const projectRoleEnum = {
   PROJECT_ADMIN: "Project_Admin",
   PROJECT_MEMBER: "Project_Member",
 };
 export const projectRoleEnumOptions = Object.values(projectRoleEnum);
 
+//middleware
 export const SubscriptionEnum = {
   FREE_PLAN: "Free_Plan",
   PREMIUM_PLAN: "Premium_Plan",

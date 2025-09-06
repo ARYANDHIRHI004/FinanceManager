@@ -4,11 +4,16 @@ import { addCategory, deleteCategory, getAllCategories, setBudget, updateCategor
 
 const categoryRouter = Router()
 
-categoryRouter.route("/add-category/:accountId").post(verifyJWT, addCategory)
-categoryRouter.route("/get-categories/:accountId").get(verifyJWT, getAllCategories)
-categoryRouter.route("/get-categories-by-id/:accountId").get(verifyJWT, getAllCategories)
-categoryRouter.route("/update-budget-to-category/:categoryId").put(verifyJWT, setBudget)
-categoryRouter.route("/update-category/:categoryId").put(verifyJWT, updateCategory)
-categoryRouter.route("/delete-category/:categoryId").delete(verifyJWT, deleteCategory)
+categoryRouter.route("/add-category/:accountId").post(verifyJWT, addCategory) // middleware to check ADMIN and Collaborater for the Account
+
+categoryRouter.route("/get-categories/:accountId").get(verifyJWT, getAllCategories) // middlewares for the ADMIN, COLLABORATERS and MEMBER
+
+categoryRouter.route("/get-categories-by-id/:accountId").get(verifyJWT, getAllCategories) // middlewares for the ADMIN, COLLABORATERS and MEMBER
+
+categoryRouter.route("/update-budget-to-category/:categoryId").put(verifyJWT, setBudget) // middleware to check ADMIN and Collaborater for the Account
+
+categoryRouter.route("/update-category/:categoryId").put(verifyJWT, updateCategory) // middleware to check ADMIN and Collaborater for the Account
+
+categoryRouter.route("/delete-category/:categoryId").delete(verifyJWT, deleteCategory) // middleware to check ADMIN and Collaborater for the Account
 
 export default categoryRouter

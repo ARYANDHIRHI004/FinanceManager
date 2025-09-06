@@ -3,10 +3,11 @@ import { Subscription } from "../models/subscriptions.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
+import { enviroment } from "../constents.js";
 
 const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_id: enviroment.RAZORPAY_KEY_ID,
+  key_secret: enviroment.RAZORPAY_KEY_SECRET,
 });
 
 export const createOrder = asyncHandler(async (req, res) => {

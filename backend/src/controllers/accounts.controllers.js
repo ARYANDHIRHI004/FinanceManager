@@ -1,4 +1,4 @@
-import { accountTypeEnum } from "../constents.js";
+import { accountTypeEnum, accountUserRole } from "../constents.js";
 import { AccountMember } from "../models/accountMembers.models.js";
 import { Account } from "../models/accounts.models.js";
 import { Subscription } from "../models/subscriptions.models.js";
@@ -46,10 +46,12 @@ export const createAccount = asyncHandler(async (req, res) => {
 
 export const getMyAccounts = asyncHandler(async (req, res) => {
   const { accountType } = req.body;
+
   const account = await Account.find({
     owner: req.user?._id,
     accountType: accountType,
   });
+
   if (!account) {
     throw new ApiError(401, "No accounts to show");
   }
@@ -58,8 +60,13 @@ export const getMyAccounts = asyncHandler(async (req, res) => {
 });
 
 export const getJointAccounts = asyncHandler(async (req, res) => {
+  
+  //Aggregation pipeline joining doc of AccountMember and Account
   const accounts = await AccountMember.find({
     memberId: req.user?._id,
+    role: {
+      $or: [accountUserRole.COLLABORATER, accountUserRole.MEMBER],
+    },
   });
 
   if (!accounts) {
@@ -161,11 +168,13 @@ export const updateRoleOfMembers = asyncHandler(async (req, res) => {
     { new: true, upsert: true },
   );
 
-  if(!updatedRoleOfMember){
-    throw new ApiError(501, "internal server error")
+  if (!updatedRoleOfMember) {
+    throw new ApiError(501, "internal server error");
   }
 
-  return res.status(200).json(
-    new ApiResponse(201, "Role updated successfully", updatedRoleOfMember)
-  )
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(201, "Role updated successfully", updatedRoleOfMember),
+    );
 });
