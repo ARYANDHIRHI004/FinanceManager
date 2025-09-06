@@ -15,7 +15,7 @@ export const enviroment = {
 };
 
 
-//middleware
+//middleware - left
 export const accountUserRole = {
   ADMIN: "Admin",
   COLLABORATER: "collaborater",
@@ -23,21 +23,21 @@ export const accountUserRole = {
 };
 export const accountUserEnumOptions = Object.values(accountUserRole);
 
-//middleware
+//middleware - left
 export const accountTypeEnum = {
   PRIVATE: "Private",
   JOINT: "Joint",
 };
 export const accountTypeEnumOptions = Object.values(accountTypeEnum);
 
-//middleware
+//middleware - left
 export const projectRoleEnum = {
   PROJECT_ADMIN: "Project_Admin",
   PROJECT_MEMBER: "Project_Member",
 };
 export const projectRoleEnumOptions = Object.values(projectRoleEnum);
 
-//middleware
+//middleware - update
 export const SubscriptionEnum = {
   FREE_PLAN: "Free_Plan",
   PREMIUM_PLAN: "Premium_Plan",
