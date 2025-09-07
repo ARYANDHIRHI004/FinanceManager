@@ -23,7 +23,7 @@ export const accountUserRole = {
 };
 export const accountUserEnumOptions = Object.values(accountUserRole);
 
-//middleware - left
+//middleware
 export const accountTypeEnum = {
   PRIVATE: "Private",
   JOINT: "Joint",
@@ -37,7 +37,7 @@ export const projectRoleEnum = {
 };
 export const projectRoleEnumOptions = Object.values(projectRoleEnum);
 
-//middleware - update
+//middleware
 export const SubscriptionEnum = {
   FREE_PLAN: "Free_Plan",
   PREMIUM_PLAN: "Premium_Plan",

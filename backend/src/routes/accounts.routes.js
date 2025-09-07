@@ -10,6 +10,7 @@ import {
   removeMembersFromAccount,
   updateRoleOfMembers,
 } from "../controllers/accounts.controllers.js";
+import { checkAccountType } from "../middlewares/account.middlewares.js";
 
 const accountRouter = Router();
 
@@ -25,15 +26,15 @@ accountRouter.route("/create-account").post(verifyJWT, checkSubscription(["Free_
 
 accountRouter
   .route("/add-members-to-account/:accountId")
-  .post(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), addMembersToAccount); //add middleware for authorization or RBAC and account type 
+  .post(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), checkAccountType(["Joint"]), addMembersToAccount); //add middleware for authorization or RBAC and account type 
 
 accountRouter
   .route("/update-members-to-account/:accountId")
-  .delete(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), removeMembersFromAccount); //add middleware for authorization or RBAC and account type
+  .delete(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), checkAccountType(["Joint"]), removeMembersFromAccount); //add middleware for authorization or RBAC and account type
 
 accountRouter
   .route("/update-role-of-members/:accountId")
-  .put(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), updateRoleOfMembers); //add middleware for authorization or RBAC and account type
+  .put(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), checkAccountType(["Joint"]), updateRoleOfMembers); //add middleware for authorization or RBAC and account type
 
 // accountRouter.route("/update-account/:accountId").put(verifyJWT, updateAccount);
 
