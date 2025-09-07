@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { accountTypeEnum, accountUserRole } from "../constents.js";
 import { AccountMember } from "../models/accountMembers.models.js";
 import { Account } from "../models/accounts.models.js";
@@ -73,13 +74,25 @@ export const getMyAccounts = asyncHandler(async (req, res) => {
 });
 
 export const getJointAccounts = asyncHandler(async (req, res) => {
-  //Aggregation pipeline joining doc of AccountMember and Account
-  const accounts = await AccountMember.find({
-    memberId: req.user?._id,
-    role: {
-      $or: [accountUserRole.COLLABORATER, accountUserRole.MEMBER],
+
+  const accounts = await AccountMember.aggregate([
+    {
+      $match: {
+        memberId: mongoose.Types.ObjectId(req.user?._id),
+        role: {
+          $or: [accountUserRole.COLLABORATER, accountUserRole.MEMBER],
+        },
+      },
     },
-  });
+    {
+      $lookup: {
+        from: "accounts",
+        localField: "accountId",
+        foreignField: "_id",
+        as: "account",
+      },
+    },
+  ]);
 
   if (!accounts) {
     throw new ApiError(401, "You are not member of any joint account");
