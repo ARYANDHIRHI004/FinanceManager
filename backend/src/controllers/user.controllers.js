@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 
 const generateAccessAndRefreshToken = async (user) => {
   try {
+
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
     user.refrehTokne = refreshToken;
@@ -45,11 +46,11 @@ export const registerUser = asyncHandler(async (req, res) => {
 });
 
 export const loginUser = asyncHandler(async (req, res) => {
-  const { emailOrUsername, password } = req.body;
+  const { usernameOrEmail, password } = req.body;
 
   const user = await User.findOne({
-    $or: [{ email: emailOrUsername }, { username: emailOrUsername }],
-  });
+    $or: [{ email:usernameOrEmail }, {username:usernameOrEmail}],
+  })
 
   if (!user) {
     throw new ApiError(401, "User does not exist");
@@ -61,6 +62,7 @@ export const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid password");
   }
 
+  
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
     user,
   );
@@ -81,11 +83,9 @@ export const logoutUser = asyncHandler(async (req, res) => {
   if (!userId) {
     throw new ApiError(401, "User not logged In");
   }
-
+    
   const user = await User.findByIdAndUpdate(
-    {
       userId,
-    },
     {
       $set: {
         refrehTokne: null,
@@ -112,6 +112,10 @@ export const getCurrentUser = asyncHandler(async (req, res) => {
   const userId = req.user?._id;
 
   const user = await User.findById(userId);
+
+  if (!user) {
+    throw new ApiError(501, "User not found");
+  }
 
   return res
     .status(200)
