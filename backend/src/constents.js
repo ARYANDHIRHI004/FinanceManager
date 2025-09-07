@@ -15,10 +15,10 @@ export const enviroment = {
 };
 
 
-//middleware - left
+//middleware
 export const accountUserRole = {
-  ADMIN: "Admin",
-  COLLABORATER: "collaborater",
+  ADMIN: "ADMIN",
+  COLLABORATER: "COLLABORATER",
   MEMBER: "MEMBER",
 };
 export const accountUserEnumOptions = Object.values(accountUserRole);
