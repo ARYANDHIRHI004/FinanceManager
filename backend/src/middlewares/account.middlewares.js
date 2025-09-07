@@ -1,6 +1,6 @@
-import { Account } from "../models/accounts.models";
-import { ApiError } from "../utils/ApiError";
-import { asyncHandler } from "../utils/AsyncHandler";
+import { Account } from "../models/accounts.models.js";
+import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/AsyncHandler.js";
 
 const checkAccountType = (accountsType = []) => {
   return asyncHandler(async (req, res, next) => {
