@@ -38,7 +38,7 @@ const checkAccountMemberRole = function (roles = []) {
     if (!roles.includes(role)) {
       throw new ApiError(401, "Unauthorized request");
     }
-    next;
+    next();
   });
 };
 
