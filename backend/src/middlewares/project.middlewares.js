@@ -1,7 +1,6 @@
-import { Project } from "../models/project.models";
-import { ProjectMamber } from "../models/projectMembers.models";
-import { ApiError } from "../utils/ApiError";
-import { asyncHandler } from "../utils/AsyncHandler";
+import { ProjectMamber } from "../models/projectMembers.models.js";
+import { ApiError } from "../utils/ApiError.js";
+import { asyncHandler } from "../utils/AsyncHandler.js";
 
 const checkProjectMemberRole = function (roles = []) {
   return asyncHandler(async (req, _, next) => {
