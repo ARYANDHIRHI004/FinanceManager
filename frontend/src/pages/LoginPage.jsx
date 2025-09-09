@@ -1,16 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../stores/useAuthStore";
+import { Loader2 } from "lucide-react";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
-  
-  const {loginUser} = useAuthStore()
 
-  const handleLogin = (data) => {
-    loginUser(data)
-  }
-  
+  const { loginUser, isLoggingIn } = useAuthStore();
+
+  const handleLogin = async (data) => {
+    loginUser(data);
+  };
 
   return (
     <div className="flex justify-center items-center h-screen">
@@ -39,7 +39,7 @@ const LoginPage = () => {
             type="submit"
             onClick={handleLogin}
           >
-            Login
+            {isLoggingIn ? <Loader2 className="animate-spin"/> : "Login"}
           </button>
           <button
             className="bg-[#cf1500] h-10 rounded-[50px] text-white"
