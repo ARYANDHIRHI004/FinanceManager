@@ -70,7 +70,9 @@ export const getMyAccounts = asyncHandler(async (req, res) => {
     throw new ApiError(401, "No accounts to show");
   }
 
-  return res.status(200).json(201, "Accounts get successfully", account);
+  return res.status(200).json(
+    new ApiResponse(201, "Accounts fetched successfully", account),
+  );
 });
 
 export const getJointAccounts = asyncHandler(async (req, res) => {
