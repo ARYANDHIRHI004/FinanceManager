@@ -1,11 +1,14 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import useAuthStore from "../stores/useAuthStore";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
+  
+  const {loginUser} = useAuthStore()
 
   const handleLogin = (data) => {
-    console.log(data);
+    loginUser(data)
   }
   
 
@@ -18,7 +21,7 @@ const LoginPage = () => {
             <input
               className="border border-[#a1a1a1] rounded-md px-2 py-1"
               type="text"
-              {...register("email")}
+              {...register("usernameOrEmail")}
               placeholder="Email"
             />
           </div>
