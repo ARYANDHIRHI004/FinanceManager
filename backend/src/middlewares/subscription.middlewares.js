@@ -4,7 +4,9 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 
 const checkSubscription = function (plans = []) {
   return asyncHandler(async (req, res, next) => {
-    const subscription = await Subscription.findById(req.user?._id);
+    const subscription = await Subscription.findOne({
+      userId: req.user._id,
+    });
 
     if (!subscription) {
       throw new ApiError(401, "Please Subscribe a plan");

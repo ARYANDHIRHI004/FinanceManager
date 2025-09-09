@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { accountTypeEnum, accountUserRole } from "../constents.js";
 import { AccountMember } from "../models/accountMembers.models.js";
 import { Account } from "../models/accounts.models.js";
@@ -14,11 +15,12 @@ export const createAccount = asyncHandler(async (req, res) => {
     userId: req.user?._id,
   });
 
-  if (subscription.subscriptionPlan !== PREMIUM_PLAN) {
+  if (subscription.subscriptionPlan !== "Premium_Plan") {
     const existingAccount = await Account.findOne({
       owner: req.user?._id,
     });
     if (existingAccount) {
+      console.log("aryan");
       throw new ApiError(
         401,
         "You can create more accounts in  your current plan ",
@@ -26,7 +28,12 @@ export const createAccount = asyncHandler(async (req, res) => {
     } else {
       const account = await Account.create({
         accountName,
-        userId: req.user?._id,
+        owner: req.user?._id,
+      });
+      await AccountMember.create({
+        accountId: account._id,
+        memberId: req.user?._id,
+        role: accountUserRole.ADMIN,
       });
       return res
         .status(200)
@@ -39,6 +46,13 @@ export const createAccount = asyncHandler(async (req, res) => {
     userId: req.user?._id,
     accountType: accountType,
   });
+
+  await AccountMember.create({
+    accountId: account._id,
+    memberId: req.user?._id,
+    role: accountUserRole.ADMIN,
+  });
+
   return res
     .status(200)
     .json(new ApiResponse(201, "Account created successfully", account));
@@ -56,18 +70,31 @@ export const getMyAccounts = asyncHandler(async (req, res) => {
     throw new ApiError(401, "No accounts to show");
   }
 
-  return res.status(200).json(201, "Accounts get successfully", account);
+  return res.status(200).json(
+    new ApiResponse(201, "Accounts fetched successfully", account),
+  );
 });
 
 export const getJointAccounts = asyncHandler(async (req, res) => {
-  
-  //Aggregation pipeline joining doc of AccountMember and Account
-  const accounts = await AccountMember.find({
-    memberId: req.user?._id,
-    role: {
-      $or: [accountUserRole.COLLABORATER, accountUserRole.MEMBER],
+
+  const accounts = await AccountMember.aggregate([
+    {
+      $match: {
+        memberId: mongoose.Types.ObjectId(req.user?._id),
+        role: {
+          $or: [accountUserRole.COLLABORATER, accountUserRole.MEMBER],
+        },
+      },
     },
-  });
+    {
+      $lookup: {
+        from: "accounts",
+        localField: "accountId",
+        foreignField: "_id",
+        as: "account",
+      },
+    },
+  ]);
 
   if (!accounts) {
     throw new ApiError(401, "You are not member of any joint account");

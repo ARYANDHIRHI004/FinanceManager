@@ -9,7 +9,12 @@ export const enviroment = {
   MONGODB_URL: process.env.MONGODB_URL,
   ORIGIN: process.env.ORIGIN,
   PORT: process.env.PORT,
-  ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+  ACCESS_TOKEN_SECRET: `${process.env.ACCESS_TOKEN_SECRET}`,
+  ACCESS_TOKEN_EXPIRY: `${process.env.ACCESS_TOKEN_EXPIRY}`,
+
+  REFRESH_TOKEN_SECRET: `${process.env.REFRESH_TOKEN_SECRET}`,
+  REFRESH_TOKEN_EXPIRY: `${process.env.REFRESH_TOKEN_EXPIRY}`,
+
   RAZORPAY_KEY_ID: process.env.RAZORPAY_KEY_ID,
   RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
 };
@@ -30,7 +35,7 @@ export const accountTypeEnum = {
 };
 export const accountTypeEnumOptions = Object.values(accountTypeEnum);
 
-//middleware - left
+//middleware
 export const projectRoleEnum = {
   PROJECT_ADMIN: "Project_Admin",
   PROJECT_MEMBER: "Project_Member",
