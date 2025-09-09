@@ -26,7 +26,7 @@ accountRouter.route("/create-account").post(verifyJWT, checkSubscription(["Free_
 
 accountRouter
   .route("/add-members-to-account/:accountId")
-  .post(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), checkAccountType(["Joint"]), addMembersToAccount); //add middleware for authorization or RBAC and account type 
+  .post(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountType(["Joint"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), addMembersToAccount); //add middleware for authorization or RBAC and account type 
 
 accountRouter
   .route("/update-members-to-account/:accountId")
