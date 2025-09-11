@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../stores/useAuthStore";
-import { Loader2 } from "lucide-react";
+import { Github, Loader2 } from "lucide-react";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
@@ -35,20 +35,20 @@ const LoginPage = () => {
             />
           </div>
           <button
-            className="bg-[#120052] h-10 rounded-[50px] text-white"
+            className="bg-[#ffffff] h-10 rounded-[50px] border border-[#696969] flex justify-center items-center"
             type="submit"
             onClick={handleLogin}
           >
-            {isLoggingIn ? <Loader2 className="animate-spin"/> : "Login"}
+            {isLoggingIn ? <Loader2 className="animate-spin" size={15}/> : "Login"}
           </button>
           <button
-            className="bg-[#cf1500] h-10 rounded-[50px] text-white"
+            className="bg-[#ffffff] h-10 rounded-[50px] border border-[#696969] "
             type="submit"
           >
             Login with Google
           </button>
           <button
-            className="bg-[#1f1f1f] h-10 rounded-[50px] text-white"
+            className="bg-[#fdfdfd] h-10 rounded-[50px] border border-[#696969] "
             type="submit"
           >
             Login with GitHub

@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <div className="column4">
+      <div className="bg-black">
+        aryan
+      </div>
+    </div>
+  );
+};
 
-export default HomePage
+export default HomePage;

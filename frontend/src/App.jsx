@@ -8,6 +8,7 @@ import SignupPage from './pages/SignupPage'
 import { Toaster } from 'react-hot-toast'
 import useAuthStore from './stores/useAuthStore'
 import { Loader2Icon } from 'lucide-react'
+import LayoutLoggedIn from './components/LayoutLoggedIn'
 
 const App = () => {
   const {authUser, getCurrentUser, isCheckingAuth} = useAuthStore()
@@ -26,7 +27,7 @@ const App = () => {
     <>
       <Toaster/>
       <Routes>
-      <Route path='/' element={<Layout/>}>
+      <Route path='/' element={!authUser?<Layout/>:<LayoutLoggedIn/>}>
           <Route path='/' element={!authUser ? <WelcomePage/> : <HomePage/>}/>
           <Route path='/login' element={!authUser?<LoginPage/>: <Navigate to={'/'}/>}/>
           <Route path='/signup' element={!authUser?<SignupPage/>:<Navigate to={'/'}/>}/>
