@@ -11,7 +11,7 @@ const LoginPage = () => {
   const navigate = useNavigate()
 
   const handleLogin = async (data) => {
-    loginUser(data);
+    await loginUser(data);
     navigate("/accounts")
   };
 

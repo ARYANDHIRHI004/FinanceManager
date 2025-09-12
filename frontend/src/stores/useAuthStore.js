@@ -13,7 +13,7 @@ const useAuthStore = create((set) => ({
       set({ isLoggingIn: true });
       const res = await axiosInstance.post("/auth/loginUser", data);
       toast.success(res.data.message);
-      set({ isLoggingIn: false, authUser: res.data?.data });
+      set({ isLoggingIn: false, authUser: res.data.data });
     } catch (error) {
       set({ isLoggingIn: false });
       toast.error("Error while logging in");

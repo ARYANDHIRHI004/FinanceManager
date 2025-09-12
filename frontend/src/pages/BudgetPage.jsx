@@ -12,16 +12,18 @@ const BudgetPage = () => {
   }, []);
 
   return (
-    <div className=" mt-20 px-5">
-      <div className=" flex flex-col gap-5">
+    <div className=" mt-20 px-5 h-[90vh]">
+      <div className=" columns-3">
         {!isGettingCategories ? (
           categories.length !== 0 ? (
             categories?.map((category) => {
               return (
-                <Link className="bg-[#00001d] p-5 rounded-2xl flex justify-between text-white">
-                  <p>{category.categoryName}</p>
-                  <p>₹ {category.budget}/-</p>
-                </Link>
+                <div className="bg-[#00001d] p-5 rounded-2xl mb-5 flex-5 ">
+                  <Link className="  flex justify-between  text-white ">
+                    <p>{category.categoryName}</p>
+                    <p>₹ {category.budget}/-</p>
+                  </Link>
+                </div>
               );
             })
           ) : (
@@ -32,6 +34,8 @@ const BudgetPage = () => {
             <Loader2Icon className="animate-spin" />
           </div>
         )}
+
+        
       </div>
     </div>
   );
