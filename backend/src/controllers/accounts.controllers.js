@@ -59,24 +59,20 @@ export const createAccount = asyncHandler(async (req, res) => {
 });
 
 export const getMyAccounts = asyncHandler(async (req, res) => {
-  const { accountType } = req.body;
-
   const account = await Account.find({
     owner: req.user?._id,
-    accountType: accountType,
   });
 
   if (!account) {
     throw new ApiError(401, "No accounts to show");
   }
 
-  return res.status(200).json(
-    new ApiResponse(201, "Accounts fetched successfully", account),
-  );
+  return res
+    .status(200)
+    .json(new ApiResponse(201, "Accounts fetched successfully", account));
 });
 
 export const getJointAccounts = asyncHandler(async (req, res) => {
-
   const accounts = await AccountMember.aggregate([
     {
       $match: {

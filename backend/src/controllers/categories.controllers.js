@@ -64,8 +64,8 @@ export const getCategoryById = asyncHandler(async (req, res) => {
 });
 
 export const setBudget = asyncHandler(async (req, res) => {
-  const categoryId = req.params;
-  const budget = req.body;
+  const {categoryId} = req.params;
+  const {budget} = req.body;
 
   const updatedCategory = await Category.findByIdAndUpdate(
     {
