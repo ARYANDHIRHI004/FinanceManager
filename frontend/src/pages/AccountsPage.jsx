@@ -5,14 +5,13 @@ import useActionStore from "../stores/useActions";
 
 const AccountsPage = () => {
   const { myAccounts, isGettingAccounts, getMyAccounts } = useAccountStore();
-  const { setAccountId } = useActionStore();
 
   useEffect(() => {
     getMyAccounts();
   }, []);
 
   return (
-    <div className="p-5">
+    <div className="p-5 pt-30">
       <div>
         {myAccounts &&
           myAccounts?.map((account) => {

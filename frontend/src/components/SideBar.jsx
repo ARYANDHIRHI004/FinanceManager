@@ -2,12 +2,11 @@ import React, { useState } from "react";
 import LogoutBtn from "./logoutBtn";
 import { Link, useParams } from "react-router-dom";
 import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
-import useActionStore from "../stores/useActions";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
+  const {accountId} = useParams();
 
-  const {accountId} = useParams()
   return (
     <div
       className={` ${

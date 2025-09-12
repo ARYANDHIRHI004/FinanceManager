@@ -2,13 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useAuthStore from "../stores/useAuthStore";
 import { Loader2Icon, LogOutIcon } from "lucide-react";
-import LogoutBtn from "./logoutBtn";
 
 const Navbar = () => {
   const { authUser, isLoggingOut, logOutUser } = useAuthStore();
 
   return (
-    <div className="flex bg-[#120052] p-5 justify-between text-white items-center">
+    <div className="flex bg-[#120052] p-5 justify-between text-white items-center fixed w-full">
       <h1 className="text-2xl font-[600] text-white">
         <Link to={"/"}>
           Finance<span className="text-[#ff6600]">Manager</span>
