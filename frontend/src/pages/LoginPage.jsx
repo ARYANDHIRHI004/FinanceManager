@@ -2,14 +2,17 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import useAuthStore from "../stores/useAuthStore";
 import { Github, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const { register, handleSubmit } = useForm();
 
   const { loginUser, isLoggingIn } = useAuthStore();
+  const navigate = useNavigate()
 
   const handleLogin = async (data) => {
     loginUser(data);
+    navigate("/accounts")
   };
 
   return (
@@ -39,7 +42,11 @@ const LoginPage = () => {
             type="submit"
             onClick={handleLogin}
           >
-            {isLoggingIn ? <Loader2 className="animate-spin" size={15}/> : "Login"}
+            {isLoggingIn ? (
+              <Loader2 className="animate-spin" size={15} />
+            ) : (
+              "Login"
+            )}
           </button>
           <button
             className="bg-[#ffffff] h-10 rounded-[50px] border border-[#696969] "
