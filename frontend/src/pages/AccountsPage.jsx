@@ -15,7 +15,7 @@ const AccountsPage = () => {
       <div>
         {myAccounts &&
           myAccounts?.map((account) => {
-              return <Link to={`/accounts/${account._id}`}>
+              return <Link key={account._id} to={`/accounts/${account._id}`}>
               <div className="bg-[#00001d] p-5 rounded-2xl flex flex-col gap-5 text-white">
                 {account.accountName}
               </div>
