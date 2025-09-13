@@ -9,9 +9,9 @@ const LogoutBtn = ({open}) => {
   return (
     <button
       onClick={logOutUser}
-      className="bg-[#6f00ff] text-white rounded-lg flex justify-center items-center h-12"
+      className="bg-[#ffffff] text-[#00001d] rounded-lg flex justify-center items-center h-12"
     >
-      {isLoggingOut ? <Loader2Icon className="animate-spin" size={15} /> : open?"Logout":<LogOutIcon size={14}/>}
+      {isLoggingOut ? <Loader2Icon className="animate-spin" size={15} /> : open?<div className="flex gap-2 items-center ">Logout <LogOutIcon size={14}/> </div>:<LogOutIcon size={14}/>}
     </button>
   );
 };

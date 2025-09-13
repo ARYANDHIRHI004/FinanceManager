@@ -36,6 +36,9 @@ const SideBar = () => {
             <Link to={`/accounts/${accountId}/expences`}>
               <p className="text-white text-[14px]">Expences</p>
             </Link>
+            <Link to={`/accounts/${accountId}/Income`}>
+              <p className="text-white text-[14px]">Income</p>
+            </Link>
             <Link to={`/accounts/${accountId}/budget`}>
               <p className="text-white text-[14px]">Budget</p>
             </Link>

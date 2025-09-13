@@ -12,6 +12,7 @@ import BudgetPage from "./pages/BudgetPage";
 import AccountsPage from "./pages/AccountsPage";
 import HomePage from "./pages/HomePage";
 import ExpancesPage from "./pages/ExpancesPage";
+import IncomePage from "./pages/IncomePage";
 
 const App = () => {
   const { authUser, getCurrentUser, isCheckingAuth } = useAuthStore();
@@ -65,6 +66,10 @@ const App = () => {
           <Route
             path="/accounts/:accountId/expences"
             element={authUser ? <ExpancesPage /> : <Navigate to={"/login"} />}
+          />
+          <Route
+            path="/accounts/:accountId/income"
+            element={authUser ? <IncomePage /> : <Navigate to={"/login"} />}
           />
         </Route>
       </Routes>
