@@ -1,5 +1,7 @@
+import mongoose from "mongoose";
 import { Transection } from "../models/transections.models.js";
 import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 
 export const createTransection = asyncHandler(async (req, res) => {
@@ -8,20 +10,12 @@ export const createTransection = asyncHandler(async (req, res) => {
 
   const existedTransection = await Transection.findOne({
     accountId,
-    for: {
-      $or: [{ projectId }, { categoryId }],
-    },
+    $or: [{ "for.projectId": projectId }, { "for.categoryId": categoryId }],
   });
-
-  if (existedTransection) {
-    throw new ApiError(401, "Transection already exist");
-  }
 
   const transection = await Transection.create({
     accountId,
-    for: {
-      $or: [{ projectId }, { categoryId }],
-    },
+    for: { projectId, categoryId },
     userId: req.user?._id,
     amount,
     note,
@@ -33,19 +27,31 @@ export const createTransection = asyncHandler(async (req, res) => {
   }
 
   return res
-    .statues(200)
+    .status(200)
     .json(
       new ApiResponse(201, "Transection created successfully", transection),
     );
 });
 
 export const getAllCategoryTransection = asyncHandler(async (req, res) => {
-  const { accountId, categoryId } = req.params;
+  const { accountId } = req.params;
+  console.log(accountId);
 
-  const transection = await Transection.find({
-    accountId,
-    "for.categoryId": categoryId,
-  });
+  const transection = await Transection.aggregate([
+    {
+      $match: {
+        accountId: new mongoose.Types.ObjectId(accountId),
+      },
+    },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "for.categoryId",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+  ]);
 
   if (!transection) {
     throw new ApiError(401, "No transection found");
@@ -57,12 +63,23 @@ export const getAllCategoryTransection = asyncHandler(async (req, res) => {
 });
 
 export const getAllProjectTransection = asyncHandler(async (req, res) => {
-  const { accountId, projectId } = req.params;
+  const { accountId } = req.params;
 
-  const transection = await Transection.find({
-    accountId,
-    "for.projectId": projectId,
-  });
+  const transection = await Transection.aggregate([
+    {
+      $match: {
+        accountId: new mongoose.Types.ObjectId(accountId),
+      },
+    },
+    {
+      $lookup: {
+        from: "categories",
+        localField: "for.projectId",
+        foreignField: "_id",
+        as: "category",
+      },
+    },
+  ]);
 
   if (!transection) {
     throw new ApiError(401, "No transection found");

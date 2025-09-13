@@ -24,7 +24,7 @@ const transectionSchema = new mongoose.Schema(
         ref: "Category",
       },
     },
-    ammount: {
+    amount: {
       type: String,
       required: true,
     },

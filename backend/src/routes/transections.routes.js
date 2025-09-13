@@ -19,7 +19,7 @@ transectionRouter
   ); // verifyJWT, account-admin or collaborater, subscription - free and paid
 
 transectionRouter
-  .route("/get-all-category-transection/:accountId/category/:categoryId")
+  .route("/get-all-category-transection/:accountId")
   .get(
     verifyJWT,
     checkSubscription(["Premium_Plan", "Free_Plan"]),

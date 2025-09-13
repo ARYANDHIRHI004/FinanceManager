@@ -52,5 +52,7 @@ export const SubscriptionEnumOptions = Object.values(SubscriptionEnum);
 export const transectionTypeEnum = {
     IN: "In",
     OUT: "Out",
+    REQUEST: "Request",
+    BORROW: "Borrow",
 }
 export const transectionTypeEnumOptions = Object.values(transectionTypeEnum);
