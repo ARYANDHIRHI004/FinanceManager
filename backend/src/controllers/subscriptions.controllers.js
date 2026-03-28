@@ -105,6 +105,9 @@ export const freePlanSubscription = asyncHandler(async (req, res) => {
     userId: req.user?._id,
   });
 
+  newSubscription.status = "Active"
+  await newSubscription.save()
+
   if (!newSubscription) {
     throw new ApiError(501, "Internal server error");
   }

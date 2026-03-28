@@ -43,7 +43,7 @@ export const createAccount = asyncHandler(async (req, res) => {
 
   const account = await Account.create({
     accountName,
-    userId: req.user?._id,
+    owner: req.user?._id,
     accountType: accountType,
   });
 
@@ -73,13 +73,13 @@ export const getMyAccounts = asyncHandler(async (req, res) => {
 });
 
 export const getJointAccounts = asyncHandler(async (req, res) => {
+
+  console.log(req.user._id)
+
   const accounts = await AccountMember.aggregate([
     {
       $match: {
-        memberId: mongoose.Types.ObjectId(req.user?._id),
-        role: {
-          $or: [accountUserRole.COLLABORATER, accountUserRole.MEMBER],
-        },
+        memberId: new mongoose.Types.ObjectId(req.user._id),
       },
     },
     {
@@ -90,6 +90,23 @@ export const getJointAccounts = asyncHandler(async (req, res) => {
         as: "account",
       },
     },
+    {
+      $unwind: "$account"
+    },
+    {
+      $group: {
+        _id: null,
+        accounts: {
+          $push: "$account"
+        }
+      }
+    },
+    {
+      $project: {
+        _id: 0,
+        accounts: 1
+      }
+    }
   ]);
 
   if (!accounts) {

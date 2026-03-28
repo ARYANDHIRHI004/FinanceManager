@@ -18,6 +18,7 @@ import { checkProjectMemberRole } from "../middlewares/project.middlewares.js";
 
 const projectRouter = Router();
 
+
 projectRouter.route("/create-project/:accountId").post(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountType(["joint"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), createProject); // middlewares - verifyJW, subscription-premium, account-type, account-admin or collaborater,
 
 projectRouter.route("/get-all-projects/:accountId").get(verifyJWT, getAllProject); // middlewares - verifyJW, subscription-premium, account-type, account-admin or collaborater,

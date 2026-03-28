@@ -31,8 +31,6 @@ const checkAccountMemberRole = function (roles = []) {
     accountId
    })
 
-   
-
     if (!member) {
       throw new ApiError(401, "You are not member of this account");
     }
