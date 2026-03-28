@@ -20,7 +20,7 @@ transectionRouter
 
 transectionRouter
   .route("/get-all-category-transection/:accountId")
-  .get(
+  .get( 
     verifyJWT,
     checkSubscription(["Premium_Plan", "Free_Plan"]),
     getAllCategoryTransection,

@@ -29,7 +29,7 @@ accountRouter
   .post(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountType(["Joint"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), addMembersToAccount); //add middleware for authorization or RBAC and account type 
 
 accountRouter
-  .route("/update-members-to-account/:accountId")
+  .route("/delete-members-from-account/:accountId")
   .delete(verifyJWT, checkSubscription(["Premium_Plan"]), checkAccountMemberRole(["ADMIN", "COLLABORATER"]), checkAccountType(["Joint"]), removeMembersFromAccount); //add middleware for authorization or RBAC and account type
 
 accountRouter
