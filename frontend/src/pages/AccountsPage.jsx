@@ -2,25 +2,59 @@ import React, { use, useEffect } from "react";
 import useAccountStore from "../stores/useAccountStore";
 import { Link } from "react-router-dom";
 import useActionStore from "../stores/useActions";
+import { CloudCog } from "lucide-react";
 
 const AccountsPage = () => {
-  const { myAccounts, isGettingAccounts, getMyAccounts } = useAccountStore();
+  const {
+    myAccounts,
+    isGettingAccounts,
+    getMyAccounts,
+    joinAccounts,
+    getJoinAccounts,
+  } = useAccountStore();
+
 
   useEffect(() => {
     getMyAccounts();
+    getJoinAccounts();
   }, []);
 
+
   return (
-    <div className="p-5 pt-30">
-      <div>
-        {myAccounts &&
+    <div className="p-5 pt-30 flex gap-5">
+      <div className="flex-2">
+        <h1>My Accounts</h1>
+        {myAccounts.length !== 0 ? (
           myAccounts?.map((account) => {
-              return <Link key={account._id} to={`/accounts/${account._id}`}>
-              <div className="bg-[#00001d] p-5 rounded-2xl flex flex-col gap-5 text-white">
-                {account.accountName}
-              </div>
-            </Link>
-          })}
+            return (
+              <Link key={account._id} to={`/accounts/${account._id}`}>
+                <div className="bg-[#00001d] p-5 rounded-2xl flex flex-col gap-5 text-white">
+                  {account.accountName}
+                </div>
+              </Link>
+            );
+          })
+        ) : (
+          <h1>No accounts</h1>
+        )}
+      </div>
+      <div className="flex-2">
+        <h1>Joint Accounts</h1>
+        {joinAccounts.lenght !== 0 ? (
+          joinAccounts.map((accounts) =>
+            accounts.accounts.map((account) => {
+              return (
+                <Link key={account._id} to={`/accounts/${account._id}`}>
+                  <div className="bg-[#00001d] p-5 rounded-2xl mt-2  text-white">
+                    {account.accountName}
+                  </div>
+                </Link>
+              );
+            }),
+          )
+        ) : (
+          <h1>No Joint accounts</h1>
+        )}
       </div>
     </div>
   );

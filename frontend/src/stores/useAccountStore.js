@@ -6,11 +6,26 @@ const useAccountStore = create((set) => ({
   myAccounts: [],
   isGettingAccounts: false,
 
+  joinAccounts: [],
+  isFetchJoinAccounts: false,
+
   getMyAccounts: async () => {
     try {
       set({ isGettingAccounts: true });
       const res = await axiosInstance.get(`/accounts/get-my-accounts`);
       set({ isGettingAccounts: false, myAccounts: res.data.data });
+      toast.success(res.data.message);
+    } catch (error) {
+      toast.error("Error while getting accounts");
+    }
+  },
+  
+  getJoinAccounts: async () => {
+    try {
+      set({ isFetchJoinAccounts: true });
+      const res = await axiosInstance.get(`/accounts/get-join-accounts`);
+      set({ isFetchJoinAccounts: false, joinAccounts: res.data.data });     
+      toast.success(res.data.message);
     } catch (error) {
       toast.error("Error while getting accounts");
     }

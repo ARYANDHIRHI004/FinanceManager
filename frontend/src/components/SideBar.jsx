@@ -22,7 +22,7 @@ const SideBar = () => {
               </div>
             ) : (
                 <div className="flex gap-5">
-                    Finance Manager
+                    FinanceManager
                 <CircleArrowLeft color="#ffffff" />
               </div>
             )}
