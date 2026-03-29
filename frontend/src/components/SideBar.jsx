@@ -5,7 +5,7 @@ import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
-  const {accountId} = useParams();
+  const {accountId, accountType} = useParams();
 
   return (
     <div
@@ -30,24 +30,31 @@ const SideBar = () => {
         </h1>
         {open && (
           <div className="flex flex-col gap-5">
-            <Link to={`/accounts/${accountId}`}>
+            <Link to={`/accounts/${accountId}/${accountType}`}>
               <p className="text-white text-[14px]">Dashboard</p>
             </Link>
-            <Link to={`/accounts/${accountId}/expences`}>
+            <Link to={`/accounts/${accountId}/${accountType}/expences`}>
               <p className="text-white text-[14px]">Expences</p>
             </Link>
-            <Link to={`/accounts/${accountId}/Income`}>
+            <Link to={`/accounts/${accountId}/${accountType}/Income`}>
               <p className="text-white text-[14px]">Income</p>
             </Link>
-            <Link to={`/accounts/${accountId}/budget`}>
+            <Link to={`/accounts/${accountId}/${accountType}/budget`}>
               <p className="text-white text-[14px]">Budget</p>
             </Link>
-            <Link to={`/accounts/${accountId}/request-money`}>
+            <Link to={`/accounts/${accountId}/${accountType}/request-money`}>
               <p className="text-white text-[14px]">Request Money</p>
             </Link>
-            <Link to={`/accounts/${accountId}/send-money`}>
+            <Link to={`/accounts/${accountId}/${accountType}/send-money`}>
               <p className="text-white text-[14px]">Send Money</p>
             </Link>
+            {
+              accountType === "Joint" && (
+                <Link to={`/accounts/${accountId}/${accountType}/projects`}>
+                  <p className="text-white text-[14px]">Projects</p>
+                </Link>
+              )
+            }
             <Link to={"/accounts"}>
               <p className="text-white text-[14px]">Accounts</p>
             </Link>

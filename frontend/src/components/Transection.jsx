@@ -5,28 +5,32 @@ import { Loader2Icon } from "lucide-react";
 import TransectionModalForm from "./TransectionModalForm";
 
 const Transection = ({ transectionType }) => {
-  const { transections, isGettingTransections, getTransections } = useTransectionsStore();
+  const { transections, isGettingTransections, getTransections } =
+    useTransectionsStore();
   const { accountId } = useParams();
 
   useEffect(() => {
     getTransections(accountId);
   }, []);
 
-  const [modalStatus, setModalStatus] = useState(false)
+  const [modalStatus, setModalStatus] = useState(false);
 
   return (
     <div className=" mt-20 px-5 h-[90vh]">
       <div className="absolute">
         <TransectionModalForm status={modalStatus} />
-
       </div>
-      <div className="columns-1">
+      <div className="">
         <div>
           <button
-          onClick={()=>setModalStatus(!modalStatus)} 
-          className="bg-[#00001d] text-white px-3 py-3 rounded-2xl hover:cursor-pointer">Add Expance</button>
+            onClick={() => setModalStatus(!modalStatus)}
+            className="bg-[#00001d] text-white px-3 py-3 rounded-2xl hover:cursor-pointer mb-5"
+          >
+            Add Expance
+          </button>
         </div>
-        {!isGettingTransections ? (
+        <div className=" gap-5">
+          {!isGettingTransections ? (
           transections.length !== 0 ? (
             transections
               .filter((transection) => {
@@ -36,11 +40,16 @@ const Transection = ({ transectionType }) => {
               })
               .map((transection) => {
                 return (
-                  <div className="bg-[#00001d] p-5 rounded-2xl mt-5 flex-5 ">
-                    <Link className="  flex justify-between  text-white ">
-                      <p>{transection.category[0].categoryName}</p>
-                      <p>₹ {transection.amount}/-</p>
-                      <p>₹ {transection.transectionType}/-</p>
+                  <div className="bg-[#00001d] p-5 rounded-2xl mb-2 flex-5">
+                    <Link className="flex justify-between  text-white ">
+                      <div>
+                        <p>{transection.category[0].categoryName}</p>
+                        <p>{transection.note}</p>
+                      </div>
+                      <div>
+                        <p>₹ {transection.amount}/-</p>
+                        <p>₹ {transection.transectionType}/-</p>
+                      </div>
                     </Link>
                   </div>
                 );
@@ -53,6 +62,7 @@ const Transection = ({ transectionType }) => {
             <Loader2Icon className="animate-spin" />
           </div>
         )}
+        </div>
       </div>
     </div>
   );

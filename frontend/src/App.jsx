@@ -56,19 +56,19 @@ const App = () => {
 
         <Route path="/accounts" element={<LayoutLoggedIn/>}>
           <Route
-            path="/accounts/:accountId"
+            path="/accounts/:accountId/:accountType"
             element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/accounts/:accountId/budget"
+            path="/accounts/:accountId/:accountType/budget"
             element={authUser ? <BudgetPage /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/accounts/:accountId/expences"
+            path="/accounts/:accountId/:accountType/expences"
             element={authUser ? <ExpancesPage /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/accounts/:accountId/income"
+            path="/accounts/:accountId/:accountType/income"
             element={authUser ? <IncomePage /> : <Navigate to={"/login"} />}
           />
         </Route>
