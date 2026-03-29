@@ -5,63 +5,76 @@ import { CircleArrowLeft, CircleArrowRight } from "lucide-react";
 
 const SideBar = () => {
   const [open, setOpen] = useState(true);
-  const {accountId, accountType} = useParams();
+  const { accountId, accountType } = useParams();
+
+  const navLinks = [
+    { name: "Dashboard", path: "" },
+    { name: "Expenses", path: "expences" },
+    { name: "Income", path: "Income" },
+    { name: "Budget", path: "budget" },
+    { name: "Request Money", path: "request-money" },
+    { name: "Send Money", path: "send-money" },
+  ];
 
   return (
     <div
-      className={` ${
-        open ? "w-[17vw]" : "w-[4.5vw]"
-      } bg-[#00001d] h-screen flex flex-col justify-between px-4 py-8 transition-width duration-500`}
+      className={`${
+        open ? "w-64" : "w-16"
+      } bg-[#080b14] border-r border-white/10 h-screen flex flex-col justify-between px-3 py-6 transition-all duration-300`}
     >
+      {/* Top */}
       <div>
-        <h1 className="text-2xl font-[600] text-white mb-8">
-          <button className="group" onClick={() => setOpen(!open)}>
-            {!open ? (
-                <div>
-                <CircleArrowRight color="#ffffff" />
-              </div>
-            ) : (
-                <div className="flex gap-5">
-                    FinanceManager
-                <CircleArrowLeft color="#ffffff" />
-              </div>
-            )}
-          </button>
-        </h1>
-        {open && (
-          <div className="flex flex-col gap-5">
-            <Link to={`/accounts/${accountId}/${accountType}`}>
-              <p className="text-white text-[14px]">Dashboard</p>
+        {/* Header */}
+        <button
+          onClick={() => setOpen(!open)}
+          className="flex items-center justify-between w-full mb-8 text-white"
+        >
+          {open ? (
+            <>
+              <span className="text-lg font-semibold tracking-tight">
+                Finance
+              </span>
+              <CircleArrowLeft size={20} />
+            </>
+          ) : (
+            <CircleArrowRight size={20} className="mx-auto" />
+          )}
+        </button>
+
+        {/* Links */}
+        <div className="flex flex-col gap-2">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={`/accounts/${accountId}/${accountType}/${link.path}`}
+              className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/10 hover:text-white transition"
+            >
+              {open && <span>{link.name}</span>}
             </Link>
-            <Link to={`/accounts/${accountId}/${accountType}/expences`}>
-              <p className="text-white text-[14px]">Expences</p>
+          ))}
+
+          {/* Joint only */}
+          {accountType === "Joint" && (
+            <Link
+              to={`/accounts/${accountId}/${accountType}/projects`}
+              className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/10 hover:text-white transition"
+            >
+              {open && <span>Projects</span>}
             </Link>
-            <Link to={`/accounts/${accountId}/${accountType}/Income`}>
-              <p className="text-white text-[14px]">Income</p>
-            </Link>
-            <Link to={`/accounts/${accountId}/${accountType}/budget`}>
-              <p className="text-white text-[14px]">Budget</p>
-            </Link>
-            <Link to={`/accounts/${accountId}/${accountType}/request-money`}>
-              <p className="text-white text-[14px]">Request Money</p>
-            </Link>
-            <Link to={`/accounts/${accountId}/${accountType}/send-money`}>
-              <p className="text-white text-[14px]">Send Money</p>
-            </Link>
-            {
-              accountType === "Joint" && (
-                <Link to={`/accounts/${accountId}/${accountType}/projects`}>
-                  <p className="text-white text-[14px]">Projects</p>
-                </Link>
-              )
-            }
-            <Link to={"/accounts"}>
-              <p className="text-white text-[14px]">Accounts</p>
-            </Link>
-          </div>
-        )}
+          )}
+
+          {/* Back to accounts */}
+          <Link
+            to="/accounts"
+            className="flex items-center px-3 py-2 rounded-lg text-sm text-gray-300 hover:bg-white/10 hover:text-white transition"
+          >
+            {open && <span>All Accounts</span>}
+          </Link>
+        </div>
       </div>
-      <LogoutBtn open = {open}/>
+
+      {/* Bottom */}
+      <LogoutBtn open={open} />
     </div>
   );
 };

@@ -7,7 +7,7 @@ const Navbar = () => {
   const { authUser, isLoggingOut, logOutUser } = useAuthStore();
 
   return (
-    <div className="flex bg-[#120052] p-5 justify-between text-white items-center fixed w-full">
+    <div className="flex bg-[#0c091b2a] p-5 justify-between text-white items-center z-999 fixed w-full backdrop-blur-lg">
       <h1 className="text-2xl font-[600] text-white">
         <Link to={"/"}>
           Finance<span className="text-[#ff6600]">Manager</span>
