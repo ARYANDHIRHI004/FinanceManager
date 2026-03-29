@@ -10,9 +10,9 @@ import { Loader2Icon } from "lucide-react";
 import LayoutLoggedIn from "./components/LayoutLoggedIn";
 import BudgetPage from "./pages/BudgetPage";
 import AccountsPage from "./pages/AccountsPage";
-import HomePage from "./pages/HomePage";
 import ExpancesPage from "./pages/ExpancesPage";
 import IncomePage from "./pages/IncomePage";
+import Dashboard from "./pages/HomePage";
 
 const App = () => {
   const { authUser, getCurrentUser, isCheckingAuth } = useAuthStore();
@@ -56,19 +56,19 @@ const App = () => {
 
         <Route path="/accounts" element={<LayoutLoggedIn/>}>
           <Route
-            path="/accounts/:accountId"
-            element={authUser ? <HomePage /> : <Navigate to={"/login"} />}
+            path="/accounts/:accountId/:accountType"
+            element={authUser ? <Dashboard /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/accounts/:accountId/budget"
+            path="/accounts/:accountId/:accountType/budget"
             element={authUser ? <BudgetPage /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/accounts/:accountId/expences"
+            path="/accounts/:accountId/:accountType/expences"
             element={authUser ? <ExpancesPage /> : <Navigate to={"/login"} />}
           />
           <Route
-            path="/accounts/:accountId/income"
+            path="/accounts/:accountId/:accountType/income"
             element={authUser ? <IncomePage /> : <Navigate to={"/login"} />}
           />
         </Route>
